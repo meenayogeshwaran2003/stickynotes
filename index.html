@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Sticky Notes App</title>
+    <style>
+        /* CSS styles for the app */
+        body {
+            margin: 0;
+            padding:0 ;
+            font-family: 'Gill Sans', 'Gill Sans MT';
+            font-size: larger;
+        }
+
+        .header {
+            background-color: #f8d820;
+            padding: 20px;
+            text-align: center;
+            border-bottom-right-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-color: black;
+            border-width: 100px;
+        }
+
+        .note-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            
+        }
+
+        .note {
+            width: calc(20% - 20px);
+            height: 300px;
+            border: 1px solid #000000;
+            margin: 0 10px 30px 10px;
+            padding: 10px;
+            overflow: auto;
+            box-sizing: border-box;
+            border-bottom-right-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .yellow {
+            background-color: #feff9c;
+        }
+
+        .lightblue {
+            background-color: lightblue;
+        }
+
+        .pink {
+            background-color: pink;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .purple {
+            background-color: purple;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Sticky Notes App</h1>
+        <h2>Create a new note:</h2>
+        <form action="/add_note" method="post">
+            <!-- Input fields for adding a new note -->
+
+            <input type="text" name="note_text" placeholder="Type here...." font-size="20px" style="color: rgb(3, 3, 3); width: 400px; height: 50px;">
+            <select name="note_color">
+
+                <!-- Options for note color selection -->
+
+                
+                <option value="yellow">Yellow</option>
+                <option value="lightblue">Blue</option>
+                <option value="pink">Pink</option>
+                <option value="red">Red</option>
+                <option value="purple">Purple</option>
+            </select>
+            <button type="button submit" class="btn btn-success">CREATE NOTE</button>
+        </form>
+    </div>
+    <div class="note-container">
+        {% for note in notes %}
+        <!-- Display existing notes -->
+        <div class="note {{ note.color }}">
+            <p>{{ note.text }}</p>
+            <!-- Form for deleting a note -->
+            <form action="/delete_note/{{ loop.index0 }}" method="post">
+                <button type="submit">Remove note</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
